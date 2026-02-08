@@ -1,4 +1,12 @@
+package batman;
+
 import java.util.Scanner;
+import task.*;
+import exception.*;
+
+// 或者直接写 import task.*; 也可以
+
+import exception.BatmanException; // 3. 导入 exception 包
 
 public class Batman {
 
