@@ -1,7 +1,5 @@
-package PACKAGE_NAME;
-
 public class BatmanException extends RuntimeException {
-  public BatmanException(String message) {
-    super(message);
-  }
+    public BatmanException(String message) {
+        super(message);
+    }
 }

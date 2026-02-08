@@ -42,16 +42,9 @@ public class Batman {
         }
 
         try {
-            // 2. Validation: Check if input is a valid number
             int index = Integer.parseInt(words[1]) - 1;
 
-            // 3. Validation: Check if index is within bounds
-            if (index < 0 || index >= taskCount) {
-                System.out.println("     Invalid task number.");
-                return;
-            }
-
-            // 4. Execution: Check command type and perform action
+            // Execution: Check command type and perform action
             Task targetTask = list[index];
             boolean isMark = words[0].equals("mark");
 
@@ -66,8 +59,12 @@ public class Batman {
             // 5. Shared print logic
             System.out.println("       " + targetTask);
 
-        } catch (NumberFormatException e) {
-            System.out.println("     Please provide a number.");
+        }
+        catch (NumberFormatException e) { // Validation: Check if input is a valid number
+            System.out.println("     Please provide a number for task index.");
+        }
+        catch (IndexOutOfBoundsException e) { // Validation: Check if index is within bounds
+            System.out.println("     Task number is out of bound. Please provide a task number in correct range");
         }
     }
 
@@ -75,7 +72,7 @@ public class Batman {
     public static int addTask(String input, String[] words, Task[] list, int taskCount) {
         // 1. Guard Clause: Check if list is full
         if (taskCount >= MAX_TASKS) {
-            System.out.println("     Error: Your task list is full (max " + MAX_TASKS + ").");
+            System.out.println("     Your task list is full (max " + MAX_TASKS + "). Try to delete some tasks.");
             return taskCount;
         }
 
@@ -87,11 +84,11 @@ public class Batman {
                 case "todo":
                     // substring(5) skips "todo" (length 5)
                     if (input.length() <= 5) {
-                        throw new StringIndexOutOfBoundsException();
+                        throw new BatmanException("     Error: The description of todo cannot be empty. Please add a description after todo.");
                     }
                     String todoDescription = input.substring(5).trim();
                     if (todoDescription.isEmpty()) {
-                        throw new StringIndexOutOfBoundsException();
+                        throw new BatmanException("     Error: The description of todo cannot be empty. Please add a description after todo.");
                     }
 
                     newTask = new Todo(todoDescription);
@@ -100,12 +97,20 @@ public class Batman {
                 case "deadline":
                     int byIndex = input.indexOf("/by");
                     if (byIndex == -1) {
-                        throw new StringIndexOutOfBoundsException();
+                        throw new BatmanException("     Error: Can't find \"/by\". Please add \"by\" after description.");
                     }
 
                     // substring(9) skips "deadline " (length 9)
                     String deadlineDescription = input.substring(9, byIndex).trim();
                     String by = input.substring(byIndex + 4).trim(); // +4 skips "/by "
+
+                    if (deadlineDescription.isEmpty()) {
+                        throw new BatmanException("     Error: The description of deadline cannot be empty. Please add a description after deadline.");
+                    }
+
+                    if (by.isEmpty()) {
+                        throw new BatmanException("     Error: The time of \"by\" cannot be empty. Please add a time after \"by\".");
+                    }
 
                     newTask = new Deadline(deadlineDescription, by);
                     break;
@@ -113,14 +118,29 @@ public class Batman {
                 case "event":
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
-                    if (fromIndex == -1 || toIndex == -1) {
-                        throw new StringIndexOutOfBoundsException();
+                    if (fromIndex == -1) {
+                        throw new BatmanException("     Error: Can't find \"/from\". Please add \"/from\" after description.");
+                    }
+                    else if (toIndex == -1) {
+                        throw new BatmanException("     Error: Can't find \"/to\". Please add \"/to\" after description.");
                     }
 
                     // substring(6) skips "event " (length 6)
                     String eventDescription = input.substring(6, fromIndex).trim();
                     String from = input.substring(fromIndex + 6, toIndex).trim(); // +6 skips "/from "
                     String to = input.substring(toIndex + 4).trim(); // +4 skips "/to "
+
+                    if (eventDescription.isEmpty()) {
+                        throw new BatmanException("     Error: The description of event cannot be empty. Please add a description after event.");
+                    }
+
+                    if (from.isEmpty()) {
+                        throw new BatmanException("     Error: The time of \"from\" cannot be empty. Please add a time after \"from\".");
+                    }
+
+                    if (to.isEmpty()) {
+                        throw new BatmanException("     Error: The time of \"to\" cannot be empty. Please add a time after \"to\".");
+                    }
 
                     newTask = new Event(eventDescription, from, to);
                     break;
@@ -142,10 +162,9 @@ public class Batman {
 
             return taskCount;
 
-        } catch (StringIndexOutOfBoundsException e) {
-            // Specific error handling based on command
-            System.out.println("     Error: The description or date for " + command + " cannot be empty.");
-            System.out.println("     Please check your formatting.");
+        }
+        catch (BatmanException e) {
+            System.out.println(e.getMessage());
             return taskCount;
         }
     }
@@ -162,6 +181,7 @@ public class Batman {
 
                 // Handle empty input (e.g., user just pressed Enter)
                 if (input.trim().isEmpty()) {
+                    System.out.println("     Please add a command.");
                     continue;
                 }
 
