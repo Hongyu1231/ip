@@ -1,16 +1,14 @@
 package batman;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import task.*;
 import exception.*;
 
-// 或者直接写 import task.*; 也可以
-
-import exception.BatmanException; // 3. 导入 exception 包
-
 public class Batman {
 
     private static final int MAX_TASKS = 100;
+    private static Storage storage;
 
 
     public static void printLine() {
@@ -66,6 +64,7 @@ public class Batman {
 
             // 5. Shared print logic
             System.out.println("       " + targetTask);
+            storage.save(list);
 
         }
         catch (NumberFormatException e) { // Validation: Check if input is a valid number
@@ -167,7 +166,7 @@ public class Batman {
 
             // Corrected logical OR (||) and ternary operator
             System.out.println("     Now you have " + taskCount + ((taskCount == 1) ? " task" : " tasks") + " in the list.");
-
+            storage.save(list);
             return taskCount;
 
         }
@@ -179,7 +178,7 @@ public class Batman {
 
 
     public static void talk() {
-        Task[] list = new Task[MAX_TASKS];
+        ArrayList<Task> list = storage.load();
         int taskCount = 0;
 
         try (Scanner scanner = new Scanner(System.in)) {
