@@ -7,7 +7,7 @@ import exception.*;
 import exception.BatmanException;
 
 public class Batman {
-
+    private static Storage storage;
 
     public static void printLine() {
         String line = "    ____________________________________________________________";
@@ -62,6 +62,7 @@ public class Batman {
 
             // Shared print logic
             System.out.println("       " + targetTask);
+            storage.save(list);
 
         }
         catch (NumberFormatException e) { // Validation: Check if input is a valid number
@@ -150,12 +151,10 @@ public class Batman {
 
             // Success logic
             list.add(newTask);
-
             System.out.println("     Got it. I've added this task: ");
             System.out.println("       " + newTask);
-
-            // Corrected logical OR (||) and ternary operator
             System.out.println("     Now you have " + list.size() + ((list.size() == 1) ? " task" : " tasks") + " in the list.");
+            storage.save(list);
 
         }
         catch (BatmanException e) {
@@ -177,6 +176,7 @@ public class Batman {
             System.out.println("       " + targetTask);
             list.remove(index);
             System.out.println("     Now you have " + list.size() + ((list.size() == 1 || list.isEmpty()) ? " task" : " tasks") + " in the list.");
+            storage.save(list);
         }
 
         catch (NumberFormatException e) { // Validation: Check if input is a valid number
@@ -189,8 +189,7 @@ public class Batman {
 
 
     public static void talk() {
-        ArrayList<Task> list;
-        list = new ArrayList<>();
+        ArrayList<Task> list = storage.load();
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
@@ -246,6 +245,7 @@ public class Batman {
 
 
     public static void main(String[] args) {
+        storage = new Storage("data/batman.txt");
         greeting();
         talk();
         bye();
