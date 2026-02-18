@@ -1,16 +1,12 @@
 package batman;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import task.*;
 import exception.*;
-
-// 或者直接写 import task.*; 也可以
-
-import exception.BatmanException; // 3. 导入 exception 包
+import exception.BatmanException;
 
 public class Batman {
-
-    private static final int MAX_TASKS = 100;
 
 
     public static void printLine() {
@@ -42,8 +38,8 @@ public class Batman {
     }
 
 
-    public static void handleMarking(String[] words, Task[] list, int taskCount) {
-        // 1. Validation: Check if index is provided
+    public static void handleMarking(String[] words, ArrayList<Task> list) {
+        // Validation: Check if index is provided
         if (words.length < 2) {
             System.out.println("     Please provide a task number.");
             return;
@@ -53,7 +49,7 @@ public class Batman {
             int index = Integer.parseInt(words[1]) - 1;
 
             // Execution: Check command type and perform action
-            Task targetTask = list[index];
+            Task targetTask = list.get(index);
             boolean isMark = words[0].equals("mark");
 
             if (isMark) {
@@ -64,7 +60,7 @@ public class Batman {
                 System.out.println("     OK, I've marked this task as not done yet:");
             }
 
-            // 5. Shared print logic
+            // Shared print logic
             System.out.println("       " + targetTask);
 
         }
@@ -77,14 +73,8 @@ public class Batman {
     }
 
 
-    public static int addTask(String input, String[] words, Task[] list, int taskCount) {
-        // 1. Guard Clause: Check if list is full
-        if (taskCount >= MAX_TASKS) {
-            System.out.println("     Your task list is full (max " + MAX_TASKS + "). Try to delete some tasks.");
-            return taskCount;
-        }
-
-        Task newTask = null;
+    public static void addTask(String input, String[] words, ArrayList<Task> list) {
+        Task newTask;
         String command = words[0];
 
         try {
@@ -155,36 +145,58 @@ public class Batman {
 
                 default:
                     System.out.println("     I'm sorry, but I don't know what that means :-(");
-                    return taskCount;
+                    return;
             }
 
             // Success logic
-            list[taskCount] = newTask;
-            taskCount++;
+            list.add(newTask);
 
             System.out.println("     Got it. I've added this task: ");
             System.out.println("       " + newTask);
 
             // Corrected logical OR (||) and ternary operator
-            System.out.println("     Now you have " + taskCount + ((taskCount == 1) ? " task" : " tasks") + " in the list.");
-
-            return taskCount;
+            System.out.println("     Now you have " + list.size() + ((list.size() == 1) ? " task" : " tasks") + " in the list.");
 
         }
         catch (BatmanException e) {
             System.out.println(e.getMessage());
-            return taskCount;
+        }
+    }
+
+
+    public static void deleteTask(String[] words, ArrayList<Task> list) {
+        if (words.length < 2) {
+            System.out.println("     Please provide a task number.");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(words[1]) - 1;
+            Task targetTask = list.get(index);
+            System.out.println("     Noted. I've removed this task:");
+            System.out.println("       " + targetTask);
+            list.remove(index);
+            System.out.println("     Now you have " + list.size() + ((list.size() == 1 || list.isEmpty()) ? " task" : " tasks") + " in the list.");
+        }
+
+        catch (NumberFormatException e) { // Validation: Check if input is a valid number
+            System.out.println("     Please provide a number for task index.");
+        }
+        catch (IndexOutOfBoundsException e) { // Validation: Check if index is within bounds
+            System.out.println("     Task number is out of bound. Please provide a task number in correct range");
         }
     }
 
 
     public static void talk() {
-        Task[] list = new Task[MAX_TASKS];
-        int taskCount = 0;
+        ArrayList<Task> list;
+        list = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
+                // The input string by user
                 String input = scanner.nextLine();
+                // The array of input by user
                 String[] words = input.split(" ");
 
                 // Handle empty input (e.g., user just pressed Enter)
@@ -201,20 +213,29 @@ public class Batman {
                 }
 
                 else if (input.equals("list")) {
-                    System.out.println("     Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println("     " + (i + 1) + "." + list[i]);
+                    if (list.isEmpty()) {
+                        System.out.println("     There is no task in your list.");
+                    }
+                    else {
+                        System.out.println("     Here are the tasks in your list:");
+                        for (int i = 0; i < list.size(); i++) {
+                            System.out.println("     " + (i + 1) + "." + list.get(i));
+                        }
                     }
                 }
 
                 // Handle marking / unmarking
                 else if (command.equals("mark") || command.equals("unmark")) {
-                    handleMarking(words, list, taskCount);
+                    handleMarking(words, list);
+                }
+
+                else if (command.equals("delete")) {
+                    deleteTask(words, list);
                 }
 
                 else {
                     // Let addTask handle 'todo', 'deadline', 'event' and unknown commands
-                    taskCount = addTask(input, words, list, taskCount);
+                    addTask(input, words, list);
                 }
 
                 printLine();
