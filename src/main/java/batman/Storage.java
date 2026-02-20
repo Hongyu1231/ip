@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Storage {
     private String filePath;
 
@@ -35,6 +36,7 @@ public class Storage {
         }
     }
 
+
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -59,6 +61,7 @@ public class Storage {
         }
         return tasks;
     }
+
 
     private Task parseTask(String line) {
         // Example line: D | 0 | return book | June 6th
