@@ -1,253 +1,47 @@
 package batman;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import commands.Command;
 import task.*;
 import exception.*;
 import exception.BatmanException;
 
 public class Batman {
-    private static Storage storage;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void printLine() {
-        String line = "    ____________________________________________________________";
-        System.out.println(line);
-    }
-
-
-    public static void greeting() {
-        String logo =
-                "          _==ZA==_      \n"
-                        + "        _/ ^  _  ^ \\_   \n"
-                        + "       | BAT  -  MAN |  \n"
-                        + "        \\_  _ _ _  _/   \n"
-                        + "          \\_  W  _/     \n";
-
-        printLine();
-        System.out.println(logo);
-        System.out.println("     Hello I'm Batman\n     What can I do for you?");
-        printLine();
-        System.out.println();
-    }
-
-
-    public static void bye() {
-        System.out.println("     Bye. Hope to see you again soon!");
-        printLine();
-        System.out.println();
-    }
-
-
-    public static void handleMarking(String[] words, ArrayList<Task> list) {
-        // Validation: Check if index is provided
-        if (words.length < 2) {
-            System.out.println("     Please provide a task number.");
-            return;
-        }
-
+    public Batman(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            int index = Integer.parseInt(words[1]) - 1;
+            tasks = new TaskList(storage.load());
+        } catch (BatmanException e) {
+            tasks = new TaskList(new ArrayList<Task>());
+        }
+    }
 
-            // Execution: Check command type and perform action
-            Task targetTask = list.get(index);
-            boolean isMark = words[0].equals("mark");
-
-            if (isMark) {
-                targetTask.setAsDone();
-                System.out.println("     Nice! I've marked this task as done:");
-            } else {
-                targetTask.setAsUndone();
-                System.out.println("     OK, I've marked this task as not done yet:");
+    public void run() {
+        ui.greeting();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.printLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand, ui);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             }
-
-            // Shared print logic
-            System.out.println("       " + targetTask);
-            storage.save(list);
-
-        }
-        catch (NumberFormatException e) { // Validation: Check if input is a valid number
-            System.out.println("     Please provide a number for task index.");
-        }
-        catch (IndexOutOfBoundsException e) { // Validation: Check if index is within bounds
-            System.out.println("     Task number is out of bound. Please provide a task number in correct range");
-        }
-    }
-
-
-    public static void addTask(String input, String[] words, ArrayList<Task> list) {
-        Task newTask;
-        String command = words[0];
-
-        try {
-            switch (command) {
-                case "todo":
-                    // substring(5) skips "todo" (length 5)
-                    if (input.length() <= 5) {
-                        throw new BatmanException("     Error: The description of todo cannot be empty. Please add a description after todo.");
-                    }
-                    String todoDescription = input.substring(5).trim();
-                    if (todoDescription.isEmpty()) {
-                        throw new BatmanException("     Error: The description of todo cannot be empty. Please add a description after todo.");
-                    }
-
-                    newTask = new Todo(todoDescription);
-                    break;
-
-                case "deadline":
-                    int byIndex = input.indexOf("/by");
-                    if (byIndex == -1) {
-                        throw new BatmanException("     Error: Can't find \"/by\". Please add \"by\" after description.");
-                    }
-
-                    // substring(9) skips "deadline " (length 9)
-                    String deadlineDescription = input.substring(9, byIndex).trim();
-                    String by = input.substring(byIndex + 4).trim(); // +4 skips "/by "
-
-                    if (deadlineDescription.isEmpty()) {
-                        throw new BatmanException("     Error: The description of deadline cannot be empty. Please add a description after deadline.");
-                    }
-
-                    if (by.isEmpty()) {
-                        throw new BatmanException("     Error: The time of \"by\" cannot be empty. Please add a time after \"by\".");
-                    }
-
-                    newTask = new Deadline(deadlineDescription, by);
-                    break;
-
-                case "event":
-                    int fromIndex = input.indexOf("/from");
-                    int toIndex = input.indexOf("/to");
-                    if (fromIndex == -1) {
-                        throw new BatmanException("     Error: Can't find \"/from\". Please add \"/from\" after description.");
-                    }
-                    else if (toIndex == -1) {
-                        throw new BatmanException("     Error: Can't find \"/to\". Please add \"/to\" after description.");
-                    }
-
-                    // substring(6) skips "event " (length 6)
-                    String eventDescription = input.substring(6, fromIndex).trim();
-                    String from = input.substring(fromIndex + 6, toIndex).trim(); // +6 skips "/from "
-                    String to = input.substring(toIndex + 4).trim(); // +4 skips "/to "
-
-                    if (eventDescription.isEmpty()) {
-                        throw new BatmanException("     Error: The description of event cannot be empty. Please add a description after event.");
-                    }
-
-                    if (from.isEmpty()) {
-                        throw new BatmanException("     Error: The time of \"from\" cannot be empty. Please add a time after \"from\".");
-                    }
-
-                    if (to.isEmpty()) {
-                        throw new BatmanException("     Error: The time of \"to\" cannot be empty. Please add a time after \"to\".");
-                    }
-
-                    newTask = new Event(eventDescription, from, to);
-                    break;
-
-                default:
-                    System.out.println("     I'm sorry, but I don't know what that means :-(");
-                    return;
-            }
-
-            // Success logic
-            list.add(newTask);
-            System.out.println("     Got it. I've added this task: ");
-            System.out.println("       " + newTask);
-            System.out.println("     Now you have " + list.size() + ((list.size() == 1) ? " task" : " tasks") + " in the list.");
-            storage.save(list);
-
-        }
-        catch (BatmanException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-    public static void deleteTask(String[] words, ArrayList<Task> list) {
-        if (words.length < 2) {
-            System.out.println("     Please provide a task number.");
-            return;
-        }
-
-        try {
-            int index = Integer.parseInt(words[1]) - 1;
-            Task targetTask = list.get(index);
-            System.out.println("     Noted. I've removed this task:");
-            System.out.println("       " + targetTask);
-            list.remove(index);
-            System.out.println("     Now you have " + list.size() + ((list.size() == 1 || list.isEmpty()) ? " task" : " tasks") + " in the list.");
-            storage.save(list);
-        }
-
-        catch (NumberFormatException e) { // Validation: Check if input is a valid number
-            System.out.println("     Please provide a number for task index.");
-        }
-        catch (IndexOutOfBoundsException e) { // Validation: Check if index is within bounds
-            System.out.println("     Task number is out of bound. Please provide a task number in correct range");
-        }
-    }
-
-
-    public static void talk() {
-        ArrayList<Task> list = storage.load();
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                // The input string by user
-                String input = scanner.nextLine();
-                // The array of input by user
-                String[] words = input.split(" ");
-
-                // Handle empty input (e.g., user just pressed Enter)
-                if (input.trim().isEmpty()) {
-                    System.out.println("     Please add a command.");
-                    continue;
-                }
-
-                String command = words[0];
-                printLine();
-
-                if (input.equals("bye")) {
-                    break;
-                }
-
-                else if (input.equals("list")) {
-                    if (list.isEmpty()) {
-                        System.out.println("     There is no task in your list.");
-                    }
-                    else {
-                        System.out.println("     Here are the tasks in your list:");
-                        for (int i = 0; i < list.size(); i++) {
-                            System.out.println("     " + (i + 1) + "." + list.get(i));
-                        }
-                    }
-                }
-
-                // Handle marking / unmarking
-                else if (command.equals("mark") || command.equals("unmark")) {
-                    handleMarking(words, list);
-                }
-
-                else if (command.equals("delete")) {
-                    deleteTask(words, list);
-                }
-
-                else {
-                    // Let addTask handle 'todo', 'deadline', 'event' and unknown commands
-                    addTask(input, words, list);
-                }
-
-                printLine();
-                System.out.println();
+            catch (BatmanException e) {
+                ui.printMessage(e.getMessage());
+            } finally {
+                ui.printLine();
             }
         }
     }
-
 
     public static void main(String[] args) {
-        storage = new Storage("data/batman.txt");
-        greeting();
-        talk();
-        bye();
+        new Batman("data/tasks.txt").run();
     }
 }
