@@ -13,7 +13,7 @@ public class ListCommand extends Command{
         else {
             ui.printMessage("     Here are the tasks in your list:");
             for (int i = 0; i < list.size(); i++) {
-                ui.printMessage("     " + (i + 1) + "." + list.get(i));
+                ui.printMessage("      " + (i + 1) + "." + list.get(i));
             }
         }
     }

@@ -1,5 +1,6 @@
 package task;
 
+import java.time.LocalDate;
 
 public class Task {
 
@@ -22,6 +23,10 @@ public class Task {
 
     public void setAsUndone() {
         this.isDone = false;
+    }
+
+    public boolean occursOn(LocalDate date) {
+        return false;
     }
 
     @Override

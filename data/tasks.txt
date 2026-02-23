@@ -1,4 +1,7 @@
-E | 0 | hug | 8am | 7pm
-E | 0 | love xiaoya | 8am | 7pm
 E | 0 | sfcjhdf sdaf | wedf | sdf
 T | 0 | wefcwe
+D | 0 | sdc | 2009/06/12 3:00 pm
+D | 0 | sad | 2009/05/13 03:00
+D | 0 | return book | 2026-10-15 1800
+D | 0 | CS2113 assignment | 2026-10-15 2359
+E | 0 | hackathon | 2026-10-14 0900 | 2026-10-16 1800

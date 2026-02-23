@@ -4,6 +4,11 @@ import commands.*;
 import exception.BatmanException;
 import task.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public static Command parse(String input, Ui ui) {
         // The array of input by user
@@ -71,19 +76,14 @@ public class Parser {
 
             return new AddCommand(new Todo(todoDescription));
         } else if (command.equals("deadline")) {
-            int byIndex = input.indexOf("/by");
+            int byIndex = input.indexOf(" /by ");
             if (byIndex == -1) {
-                throw new BatmanException("     Error: Can't find \"/by\". Please add \"by\" after description.");
+                throw new BatmanException("     Error: Invalid format. Please use 'deadline <description> /by <time>'.");
             }
 
-            // substring(9) skips "deadline " (length 9)
-            String deadlineDescription = input.substring(9, byIndex).trim();
-
-            if (input.length() < byIndex + 4) {
-                throw new BatmanException("     Error: The time of \"by\" cannot be empty. Please add a time after \"by\".");
-            }
-
-            String by = input.substring(byIndex + 4).trim(); // +4 skips "/by "
+            // substring(9) skips "deadline " (length 8)
+            String deadlineDescription = input.substring(8, byIndex).trim();
+            String by = input.substring(byIndex + 5).trim(); // +5 skips " /by "
 
             if (deadlineDescription.isEmpty()) {
                 throw new BatmanException("     Error: The description of deadline cannot be empty. Please add a description after deadline.");
@@ -93,30 +93,27 @@ public class Parser {
                 throw new BatmanException("     Error: The time of \"by\" cannot be empty. Please add a time after \"by\".");
             }
 
-            if (input.charAt(byIndex + 3) != ' ') {
-                throw new BatmanException("     Error: Must add a \" \" after \"/by\".");
-            }
-
             return new AddCommand(new Deadline(deadlineDescription, by));
         } else if (command.equals("event")) {
-                int fromIndex = input.indexOf("/from");
-                int toIndex = input.indexOf("/to");
-                if (fromIndex == -1) {
-                    throw new BatmanException("     Error: Can't find \"/from\". Please add \"/from\" after description.");
-                }
-                else if (toIndex == -1) {
-                    throw new BatmanException("     Error: Can't find \"/to\". Please add \"/to\" after description.");
+                int fromIndex = input.indexOf(" /from ");
+                int toIndex = input.indexOf(" /to ");
+                if (fromIndex == -1 || toIndex == -1) {
+                    throw new BatmanException("     Error: Invalid format. Please use 'event <description> /from <time> /to <time>'.");
                 }
 
-                // substring(6) skips "event " (length 6)
-                String eventDescription = input.substring(6, fromIndex).trim();
-                String from = input.substring(fromIndex + 6, toIndex).trim(); // +6 skips "/from "
+                if (fromIndex > toIndex) {
+                    throw new BatmanException("     Error: Invalid format. '/from' must be put before '/to'.");
+                }
 
-            if (input.length() < toIndex + 4) {
-                throw new BatmanException("     Error: The time of \"to\" cannot be empty. Please add a time after \"to\".");
-            }
+                if (fromIndex + 6 == toIndex) {
+                    throw new BatmanException("     Error: The time of \"from\" cannot be empty. Please add a time after \"from\".");
+                }
 
-                String to = input.substring(toIndex + 4).trim(); // +4 skips "/to "
+                // substring(6) skips "event " (length 5)
+                String eventDescription = input.substring(5, fromIndex).trim();
+                String from = input.substring(fromIndex + 7, toIndex).trim(); // +7 skips " /from "
+
+                String to = input.substring(toIndex + 5).trim(); // +5 skips " /to "
 
                 if (eventDescription.isEmpty()) {
                     throw new BatmanException("     Error: The description of event cannot be empty. Please add a description after event.");
@@ -130,19 +127,51 @@ public class Parser {
                     throw new BatmanException("     Error: The time of \"to\" cannot be empty. Please add a time after \"to\".");
                 }
 
-                if (input.charAt(fromIndex + 5) != ' ') {
-                    throw new BatmanException("     Error: Must add a \" \" after \"/from\".");
-                }
-
-                if (input.charAt(toIndex + 3) != ' ') {
-                    throw new BatmanException("     Error: Must add a \" \" after \"/to\".");
-                }
-
                 return new AddCommand(new Event(eventDescription, from, to));
             }
+
+        else if (command.equals("view")) {
+            if (words.length != 2) {
+                throw new BatmanException("     Error: Invalid format. Please use 'view yyyy-MM-dd' (e.g., view 2019-10-15).");
+            }
+            try {
+                LocalDate targetDate = LocalDate.parse(words[1]);
+                return new ViewCommand(targetDate);
+            } catch (DateTimeParseException e) {
+                throw new BatmanException("     Error: Invalid date format. Please use yyyy-MM-dd (e.g., 2019-10-15).");
+            }
+        }
 
             else {
                 throw new BatmanException("     I'm sorry, but I don't know what that means :-(");
             }
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter[] dateTimeFormatters = {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        };
+
+        DateTimeFormatter[] dateFormatters = {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        };
+
+        for (DateTimeFormatter formatter : dateTimeFormatters) {
+            try {
+                return LocalDateTime.parse(dateTimeStr, formatter);
+            } catch (DateTimeParseException e) {}
+        }
+
+        for (DateTimeFormatter formatter : dateFormatters) {
+            try {
+                LocalDate justDate = LocalDate.parse(dateTimeStr, formatter);
+                return justDate.atStartOfDay();
+            } catch (DateTimeParseException e) {}
+        }
+        return null;
     }
 }
