@@ -60,6 +60,10 @@ public class TaskList {
         }
     }
 
+    public void find() {
+
+    }
+
     public boolean isEmpty() {
         return list.isEmpty();
     }

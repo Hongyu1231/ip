@@ -141,6 +141,12 @@ public class Parser {
                 throw new BatmanException("     Error: Invalid date format. Please use yyyy-MM-dd (e.g., 2019-10-15).");
             }
         }
+        else if (command.equals("find")) {
+            if (words.length != 2) {
+                throw new BatmanException("     Error: Invalid format. Please use 'find <keyWord>'.");
+            }
+            return new FindCommand(words[1]);
+        }
 
             else {
                 throw new BatmanException("     I'm sorry, but I don't know what that means :-(");
