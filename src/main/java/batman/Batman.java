@@ -44,4 +44,5 @@ public class Batman {
     public static void main(String[] args) {
         new Batman("data/tasks.txt").run();
     }
+    
 }
