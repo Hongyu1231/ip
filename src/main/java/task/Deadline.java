@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The deadline class.
+ */
 public class Deadline extends Task {
     protected String byString;
     protected LocalDateTime byDate;
@@ -27,6 +30,10 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * If the by time is the target date, return true.
+     * @param date Target date.
+     */
     @Override
     public boolean occursOn(LocalDate date) {
         if (this.byDate == null) {

@@ -4,7 +4,17 @@ import batman.Storage;
 import batman.TaskList;
 import batman.Ui;
 
+/**
+ * Represents a command to list tasks in the current list.
+ */
 public class ListCommand extends Command{
+
+    /**
+     * Print all tasks in the list one by one.
+     * @param list    The current list of tasks to search through.
+     * @param ui      The user interface to handle printing the results.
+     * @param storage The storage utility.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         if (list.isEmpty()) {

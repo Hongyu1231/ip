@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import exception.BatmanException;
 import task.*;
 
+/**
+ * A class that store the list and execute functions(Add, Delete, Mark...) to the list.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
@@ -13,6 +16,12 @@ public class TaskList {
         this.list = list;
     }
 
+    /**
+     * Mark a certain task in the list as done.
+     * @param index   The index of the task.
+     * @param ui      The user Interface.
+     * @param storage The storage utility.
+     */
     public void mark(int index, Ui ui, Storage storage) {
         try {
             Task targetTask = list.get(index);
@@ -26,6 +35,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Mark a certain task in the list as undone.
+     * @param index   The index of the task.
+     * @param ui      The user Interface.
+     * @param storage The storage utility.
+     */
     public void unmark(int index, Ui ui, Storage storage) {
         try {
             Task targetTask = list.get(index);
@@ -39,6 +54,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add a task to the bottom of the list.
+     * @param task    The task to be added.
+     * @param ui      The user Interface.
+     * @param storage The storage utility.
+     */
     public void addTask(Task task, Storage storage, Ui ui) {
             list.add(task);
             ui.printMessage("     Got it. I've added this task: ");
@@ -47,6 +68,12 @@ public class TaskList {
             storage.save(list);
     }
 
+    /**
+     * Delete a task in the certain position of the list.
+     * @param index   The index of the task.
+     * @param ui      The user Interface.
+     * @param storage The storage utility.
+     */
     public void deleteTask(int index, Ui ui, Storage storage) {
         try {
             Task targetTask = list.get(index);
@@ -58,10 +85,6 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) { // Validation: Check if index is within bounds
             ui.printMessage("     Task number is out of bound. Please provide a task number in correct range");
         }
-    }
-
-    public void find() {
-
     }
 
     public boolean isEmpty() {
