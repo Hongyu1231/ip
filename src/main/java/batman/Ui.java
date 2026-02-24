@@ -2,6 +2,9 @@ package batman;
 
 import java.util.Scanner;
 
+/**
+ * A class that interacts with user.
+ */
 public class Ui {
     private Scanner scanner;
 
@@ -9,6 +12,9 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Print the logo of chatbot and greet user.
+     */
     public void greeting() {
         String logo =
                 "          _==ZA==_      \n"
@@ -37,6 +43,10 @@ public class Ui {
         System.out.println("     Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Print the message from chatbot to user.
+     * @param message A String to be printed.
+     */
     public void printMessage(String message) {
         System.out.println(message);
     }

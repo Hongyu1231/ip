@@ -8,6 +8,9 @@ import task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to view the tasks taks place in a specific date.
+ */
 public class ViewCommand extends Command {
     private LocalDate targetDate;
 
@@ -15,6 +18,12 @@ public class ViewCommand extends Command {
         this.targetDate = targetDate;
     }
 
+    /**
+     * Compares each task's date with the target date. If it matches, then prints the task.
+     * @param tasks    The current list of tasks to search through.
+     * @param ui      The user interface to handle printing the results.
+     * @param storage The storage utility.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String formattedDate = targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

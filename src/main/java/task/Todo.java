@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The class for todo.
+ */
 public class Todo extends Task {
 
 
@@ -7,12 +10,10 @@ public class Todo extends Task {
         super(description);
     }
 
-
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
-
 
     @Override
     public String toFileString() {

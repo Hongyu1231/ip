@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The class for event.
+ */
 public class Event extends Task {
     protected String fromStr;
     protected String toStr;
@@ -21,6 +24,10 @@ public class Event extends Task {
         this.toDate = Parser.parseDateTime(to);
     }
 
+    /**
+     * If the target date lies between the from date and the to date, return true.
+     * @param date Target date.
+     */
     @Override
     public boolean occursOn(LocalDate date) {
         if (this.fromDate == null || this.toDate == null) {

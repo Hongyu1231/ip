@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * A class that handles the storage of list.
+ */
 public class Storage {
     private String filePath;
 
@@ -15,6 +17,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Save the current list to the .txt file.
+     * @param tasks The current list.
+     */
     public void save(ArrayList<Task> tasks) {
         try {
             File file = new File(filePath);
@@ -36,7 +42,10 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Load the list stored in the .txt file.
+     * @return The list in the .txt file. If there is no such file, return empty list.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -62,7 +71,11 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * Convert the string in the .txt file into a Task object.
+     * @param line A line in the file.
+     * @return A Task object in the list. If the string is corrupted, return null.
+     */
     private Task parseTask(String line) {
         // Example line: D | 0 | return book | June 6th
         String[] parts = line.split(" \\| ");

@@ -7,6 +7,10 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command to find tasks that contain a specific keyword.
+ * This command searches through the user's task list and prints all matching tasks.
+ */
 public class FindCommand extends Command{
     private String keyWord;
 
@@ -14,6 +18,12 @@ public class FindCommand extends Command{
         this.keyWord = keyWord;
     }
 
+    /**
+     * Iterate through the whole list to find if it is matching. If it is matching, then add it to matchTasks.
+     * @param list      The current list of tasks to search through.
+     * @param ui        The user interface to handle printing the results.
+     * @param storage   The storage utility.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         if (list.isEmpty()) {
