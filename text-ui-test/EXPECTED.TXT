@@ -11,25 +11,55 @@
 
     ____________________________________________________________
      Got it. I've added this task: 
-       [T][ ] read book
-     Now you have 1 task in the list.
+       [T][ ] read CS2113 textbook
+     Now you have 8 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task: 
-       [D][ ] return book (by: Sunday)
-     Now you have 2 tasks in the list.
+       [T][ ] wash coffee mug
+     Now you have 9 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task: 
-       [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 3 tasks in the list.
+       [D][ ] submit ip assignment (by: 2026-03-01 2359)
+     Now you have 10 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
-     Nice! I've marked this task as done:
-       [T][X] read book
+     Got it. I've added this task: 
+       [D][ ] return library book (by: 2026-03-05)
+     Now you have 11 tasks in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Got it. I've added this task: 
+       [E][ ] project meeting (from: 2026-03-10 1400 to: 2026-03-10 1600)
+     Now you have 12 tasks in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Got it. I've added this task: 
+       [E][ ] hackathon (from: 2026-03-15 to: 2026-03-17)
+     Now you have 13 tasks in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[D][ ] return book (by: Sunday)
+     2.[T][X] read CS2113 textbook
+     3.[T][ ] wash coffee mug
+     4.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     5.[D][ ] return library book (by: 2026-03-05)
+     6.[D][ ] project meeting (by: 2026-03-10 1400)
+     7.[D][ ] hackathon (by: 2026-03-15)
+     8.[T][ ] read CS2113 textbook
+     9.[T][ ] wash coffee mug
+     10.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     11.[D][ ] return library book (by: 2026-03-05)
+     12.[E][ ] project meeting (from: 2026-03-10 1400 to: 2026-03-10 1600)
+     13.[E][ ] hackathon (from: 2026-03-15 to: 2026-03-17)
     ____________________________________________________________
 
     ____________________________________________________________
@@ -38,27 +68,81 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     OK, I've marked this task as not done yet:
-       [T][ ] read book
-    ____________________________________________________________
-
-    ____________________________________________________________
-     Here are the tasks in your list:
-     1.[T][ ] read book
-     2.[D][X] return book (by: Sunday)
-     3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-    ____________________________________________________________
-
-    ____________________________________________________________
-     Noted. I've removed this task:
-       [T][ ] read book
-     Now you have 2 tasks in the list.
+     Nice! I've marked this task as done:
+       [T][X] wash coffee mug
     ____________________________________________________________
 
     ____________________________________________________________
      Here are the tasks in your list:
      1.[D][X] return book (by: Sunday)
-     2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+     2.[T][X] read CS2113 textbook
+     3.[T][X] wash coffee mug
+     4.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     5.[D][ ] return library book (by: 2026-03-05)
+     6.[D][ ] project meeting (by: 2026-03-10 1400)
+     7.[D][ ] hackathon (by: 2026-03-15)
+     8.[T][ ] read CS2113 textbook
+     9.[T][ ] wash coffee mug
+     10.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     11.[D][ ] return library book (by: 2026-03-05)
+     12.[E][ ] project meeting (from: 2026-03-10 1400 to: 2026-03-10 1600)
+     13.[E][ ] hackathon (from: 2026-03-15 to: 2026-03-17)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [D][ ] return book (by: Sunday)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[D][ ] return book (by: Sunday)
+     2.[T][X] read CS2113 textbook
+     3.[T][X] wash coffee mug
+     4.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     5.[D][ ] return library book (by: 2026-03-05)
+     6.[D][ ] project meeting (by: 2026-03-10 1400)
+     7.[D][ ] hackathon (by: 2026-03-15)
+     8.[T][ ] read CS2113 textbook
+     9.[T][ ] wash coffee mug
+     10.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     11.[D][ ] return library book (by: 2026-03-05)
+     12.[E][ ] project meeting (from: 2026-03-10 1400 to: 2026-03-10 1600)
+     13.[E][ ] hackathon (from: 2026-03-15 to: 2026-03-17)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I'm sorry, but I don't know what that means :-(
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I'm sorry, but I don't know what that means :-(
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Noted. I've removed this task:
+       [T][X] read CS2113 textbook
+     Now you have 12 tasks in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[D][ ] return book (by: Sunday)
+     2.[T][X] wash coffee mug
+     3.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     4.[D][ ] return library book (by: 2026-03-05)
+     5.[D][ ] project meeting (by: 2026-03-10 1400)
+     6.[D][ ] hackathon (by: 2026-03-15)
+     7.[T][ ] read CS2113 textbook
+     8.[T][ ] wash coffee mug
+     9.[D][ ] submit ip assignment (by: 2026-03-01 2359)
+     10.[D][ ] return library book (by: 2026-03-05)
+     11.[E][ ] project meeting (from: 2026-03-10 1400 to: 2026-03-10 1600)
+     12.[E][ ] hackathon (from: 2026-03-15 to: 2026-03-17)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
 
     ____________________________________________________________
@@ -70,7 +154,15 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     I'm sorry, but I don't know what that means :-(
+     Error: Can't find "/to". Please add "/to" after description.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Task number is out of bound. Please provide a task number in correct range
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Task number is out of bound. Please provide a task number in correct range
     ____________________________________________________________
 
     ____________________________________________________________

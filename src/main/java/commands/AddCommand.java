@@ -12,6 +12,10 @@ import task.Task;
 public class AddCommand extends Command{
     private Task task;
 
+    /**
+     * Constructor.
+     * @param task New task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }

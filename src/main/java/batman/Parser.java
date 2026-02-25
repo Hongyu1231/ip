@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * This class make sense of user's input
- * It will slice the user input and feed the output to Command object
+ * This class makes sense of user's input
+ * It slices the user input and feeds the output to Command object
  */
 public class Parser {
 
@@ -20,7 +20,7 @@ public class Parser {
      *
      * @param input The full string input typed by the user.
      * @param ui    The user interface.
-     * @return A Command object that represents the user's intention (e.g., AddCommand, DeleteCommand).
+     * @return A Command object that represents the user's intention (e.g. AddCommand, DeleteCommand).
      * @throws BatmanException If the user input format is invalid, missing arguments, or contains unknown commands.
      */
     public static Command parse(String input, Ui ui) {
@@ -156,7 +156,7 @@ public class Parser {
         }
         else if (command.equals("find")) {
             if (words.length != 2) {
-                throw new BatmanException("     Error: Invalid format. Please use 'find <keyWord>'.");
+                throw new BatmanException("     Error: Invalid format. Please use 'find <keyword>'.");
             }
             return new FindCommand(words[1]);
         }
@@ -167,11 +167,11 @@ public class Parser {
     }
 
     /**
-     * Try to parse the time of event and deadline objects
+     * Tries to parse the time of event and deadline objects
      * If the time can't be parsed (e.g. User keyed in "Sunday"), then return null
      *
      * @param dateTimeStr The description string
-     * @return A DateTime object represent the time
+     * @return A DateTime object represents the time
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter[] dateTimeFormatters = {

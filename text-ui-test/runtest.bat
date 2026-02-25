@@ -7,9 +7,10 @@ REM
 del /Q ..\bin\batman\*.class
 del /Q ..\bin\task\*.class
 del /Q ..\bin\exception\*.class
+del /Q ..\bin\commands\*.class
 
 REM
-javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\batman\*.java ..\src\main\java\task\*.java ..\src\main\java\exception\*.java
+javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\batman\*.java ..\src\main\java\task\*.java ..\src\main\java\exception\*.java ..\src\main\java\commands\*.java
 
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********

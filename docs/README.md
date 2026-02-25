@@ -6,7 +6,7 @@
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.
+1. Ensure you have Java `17` installed in your Computer.
 2. Download the latest `batman.jar` file from the releases section.
 3. Copy the file to the folder you want to use as the home folder for your Batman Task Manager.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar batman.jar` command to run the application.
@@ -31,7 +31,7 @@ Refer to the [Features](#features) below for details of each command.
 >   e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 > - Dates should follow the standard ISO format: `yyyy-MM-dd` or `yyyy-MM-dd HHmm`.<br>
 >   e.g. `2026-10-15` or `2026-10-15 1800`.
-> - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.<br>
+> - Extra parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.<br>
 >   e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 ### Adding a todo : `todo`
@@ -47,9 +47,9 @@ Adds a task without any date or time attached to it.
 
 ### Adding a deadline : `deadline`
 
-Adds a task that needs to be done before a specific date and time.
+Adds a task that needs to be done before a specific date and time. You can use other format for time, however, the `view` function will not work.
 
-**Format:** `deadline DESCRIPTION /by yyyy-MM-dd [HHmm]`
+**Format:** `deadline DESCRIPTION /by yyyy-MM-dd [HHmm]` / `deadline DESCRIPTION /by TIME`
 
 **Examples:**
 
@@ -58,9 +58,9 @@ Adds a task that needs to be done before a specific date and time.
 
 ### Adding an event : `event`
 
-Adds a task that starts at a specific time and ends at a specific time.
+Adds a task that starts at a specific time and ends at a specific time. You can use other format for time, however, the `view` function will not work.
 
-**Format:** `event DESCRIPTION /from yyyy-MM-dd [HHmm] /to yyyy-MM-dd [HHmm]`
+**Format:** `event DESCRIPTION /from yyyy-MM-dd [HHmm] /to yyyy-MM-dd [HHmm]` / `event DESCRIPTION /from TIME /to TIME`
 
 **Examples:**
 
@@ -85,7 +85,7 @@ Marks an existing task in the list as completed.
 
 **Examples:**
 
-- `list` followed by `mark 2` marks the 2nd task in the list as done.
+- `mark 2` marks the 2nd task in the list as done.
 
 ### Unmarking a task : `unmark`
 
@@ -99,7 +99,7 @@ Marks a previously completed task as incomplete.
 
 ### Locating tasks by keyword : `find`
 
-Finds tasks whose descriptions contain the given keyword.
+Finds tasks who contains the given keyword.
 
 **Format:** `find KEYWORD`
 
@@ -131,11 +131,11 @@ Deletes the specified task from the list.
 
 **Examples:**
 
-- `delete 3` deletes the 3rd task in the address book.
+- `delete 3` deletes the 3rd task in the list.
 
 ### Exiting the program : `bye`
 
-Exits the program and saves your data automatically.
+Exits the program.
 
 **Format:** `bye`
 
@@ -156,6 +156,7 @@ Batman data is saved automatically as a text file `[JAR file location]/data/task
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?
+
 **A**: Install the app in the other computer and copy your existing `data/tasks.txt` file into the `data` folder of your new installation directory.
 
 ---

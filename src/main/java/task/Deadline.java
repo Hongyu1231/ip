@@ -13,12 +13,21 @@ public class Deadline extends Task {
     protected String byString;
     protected LocalDateTime byDate;
 
+    /**
+     * Constructor.
+     * @param description A String object describes the task.
+     * @param by The deadline of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.byString = by;
         this.byDate = Parser.parseDateTime(by);
     }
 
+    /**
+     * Returns the task in a format.
+     * @return A String indicates the task.
+     */
     @Override
     public String toString() {
         if (this.byDate != null) {
@@ -33,6 +42,7 @@ public class Deadline extends Task {
     /**
      * If the by time is the target date, return true.
      * @param date Target date.
+     * @return A boolean value indicates if the task occurs in the target date.
      */
     @Override
     public boolean occursOn(LocalDate date) {
@@ -42,6 +52,10 @@ public class Deadline extends Task {
         return this.byDate.toLocalDate().equals(date);
     }
 
+    /**
+     * Store the task in a file.
+     * @return A String indicates the task.
+     */
     @Override
     public String toFileString() {
         return "D" + super.toFileString() + " | " + byString;

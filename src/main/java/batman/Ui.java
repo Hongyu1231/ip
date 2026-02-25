@@ -8,6 +8,9 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructor.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -30,15 +33,25 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Print a line to divide sentences.
+     */
     public void printLine() {
         String line = "    ____________________________________________________________";
         System.out.println(line);
     }
 
+    /**
+     * Scan the input by user.
+     * @return A Scanner object.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * print bye command.
+     */
     public void bye() {
         System.out.println("     Bye. Hope to see you again soon!");
     }

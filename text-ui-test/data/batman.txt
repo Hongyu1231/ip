@@ -1,2 +1,12 @@
-D | 1 | return book | Sunday
-D | 0 | project meeting | Mon 2pm | 4pm
+D | 0 | return book | Sunday
+T | 1 | wash coffee mug
+D | 0 | submit ip assignment | 2026-03-01 2359
+D | 0 | return library book | 2026-03-05
+D | 0 | project meeting | 2026-03-10 1400
+D | 0 | hackathon | 2026-03-15
+T | 0 | read CS2113 textbook
+T | 0 | wash coffee mug
+D | 0 | submit ip assignment | 2026-03-01 2359
+D | 0 | return library book | 2026-03-05
+D | 0 | project meeting | 2026-03-10 1400 | 2026-03-10 1600
+D | 0 | hackathon | 2026-03-15 | 2026-03-17

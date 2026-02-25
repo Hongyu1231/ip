@@ -17,6 +17,10 @@ public class Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {}
 
+    /**
+     * Default is false. Chang it to ture when exiting the program.
+     * @return false.
+     */
     public boolean isExit() {
         return false;
     }

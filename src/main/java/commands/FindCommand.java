@@ -12,10 +12,14 @@ import java.util.ArrayList;
  * This command searches through the user's task list and prints all matching tasks.
  */
 public class FindCommand extends Command{
-    private String keyWord;
+    private String keyword;
 
-    public FindCommand(String keyWord) {
-        this.keyWord = keyWord;
+    /**
+     * Constructor.
+     * @param keyword The word to be searched.
+     */
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
     }
 
     /**
@@ -31,18 +35,18 @@ public class FindCommand extends Command{
         }
         else {
             ArrayList<Task> matchTasks = new ArrayList<Task>();
-            // Iterate through the whole list to find if each task contains the key word
+            // Iterate through the whole list to find if each task contains the keyword
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).toString().toLowerCase().contains(keyWord.toLowerCase())) {
+                if (list.get(i).toString().toLowerCase().contains(keyword.toLowerCase())) {
                     matchTasks.add(list.get(i));
                 }
             }
 
             if (matchTasks.isEmpty()) {
-                ui.printMessage("    There is no matching task in your list.");
+                ui.printMessage("     There is no matching task in your list.");
             }
             else {
-                ui.printMessage("    Here are the matching tasks in your list:");
+                ui.printMessage("     Here are the matching tasks in your list:");
                 for (int i = 0; i < matchTasks.size(); i++) {
                     ui.printMessage("      " + (i + 1) + "." + matchTasks.get(i));
                 }

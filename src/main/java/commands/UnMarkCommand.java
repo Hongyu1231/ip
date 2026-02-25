@@ -5,11 +5,15 @@ import batman.TaskList;
 import batman.Ui;
 
 /**
- * Represents a command to mark a task.
+ * Represents a command to unmark a task.
  */
 public class UnMarkCommand extends Command{
     private int index;
 
+    /**
+     * Constructor.
+     * @param index The index of the task to be unmarked.
+     */
     public UnMarkCommand(int index) {
         this.index = index;
     }

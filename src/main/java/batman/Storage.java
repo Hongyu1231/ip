@@ -13,12 +13,16 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor.
+     * @param filePath The location of .txt.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Save the current list to the .txt file.
+     * Saves the current list to the .txt file.
      * @param tasks The current list.
      */
     public void save(ArrayList<Task> tasks) {
@@ -43,7 +47,7 @@ public class Storage {
     }
 
     /**
-     * Load the list stored in the .txt file.
+     * Loads the list stored in the .txt file.
      * @return The list in the .txt file. If there is no such file, return empty list.
      */
     public ArrayList<Task> load() {
@@ -81,7 +85,9 @@ public class Storage {
         String[] parts = line.split(" \\| ");
 
         // Stretch goal: Handle corrupted data
-        if (parts.length < 3) return null;
+        if (parts.length < 3) {
+            return null;
+        }
 
         String type = parts[0];
         boolean isDone = parts[1].equals("1");

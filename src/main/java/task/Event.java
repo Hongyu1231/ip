@@ -15,7 +15,12 @@ public class Event extends Task {
     protected LocalDateTime fromDate;
     protected LocalDateTime toDate;
 
-
+    /**
+     * Constructor.
+     * @param description A String object describes the task.
+     * @param from When will the event begin.
+     * @param to When will the event end.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.fromStr = from;
@@ -27,6 +32,7 @@ public class Event extends Task {
     /**
      * If the target date lies between the from date and the to date, return true.
      * @param date Target date.
+     * @return A boolean value indicates if the task occurs in the target date.
      */
     @Override
     public boolean occursOn(LocalDate date) {
@@ -40,6 +46,10 @@ public class Event extends Task {
         return !date.isBefore(start) && !date.isAfter(end);
     }
 
+    /**
+     * Returns the task in a format.
+     * @return A String indicates the task.
+     */
     @Override
     public String toString() {
         // Output format: Oct 15 2019, 6:00 PM
@@ -52,7 +62,10 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + displayFrom + " to: " + displayTo + ")";
     }
 
-
+    /**
+     * Store the task in a file.
+     * @return A String indicates the task.
+     */
     @Override
     public String toFileString() {
         return "E" + super.toFileString() + " | " + fromStr + " | " + toStr;

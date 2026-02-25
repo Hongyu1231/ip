@@ -10,26 +10,39 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    // Constructor
+    /**
+     * Constructor.
+     * @param description A String object describes the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Get the icon indicates the status.
+     * @return A String indicates the status.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Set the status as done.
+     */
     public void setAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Set the status as undone.
+     */
     public void setAsUndone() {
         this.isDone = false;
     }
 
     /**
-     * Default set to false. Will be overrided in the Deadline and Event classes.
+     * Default set to false. Will be overridden in the Deadline and Event classes.
      * @param date Target date.
      * @return A boolean that indicates if the task occurs on the target date.
      */

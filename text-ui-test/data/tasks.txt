@@ -1,0 +1,5 @@
+T | 0 | read CS2113 textbook
+D | 1 | submit ip assignment | 2026-03-01 2359
+D | 0 | return library book | 2026-03-05
+E | 0 | project meeting | 2026-03-10 1400 | 2026-03-10 1600
+E | 0 | hackathon | 2026-03-15 | 2026-03-17

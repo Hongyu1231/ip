@@ -6,12 +6,15 @@ import exception.BatmanException;
 import task.*;
 
 /**
- * A class that store the list and execute functions(Add, Delete, Mark...) to the list.
+ * A class that stores the list and executes functions(Add, Delete, Mark...) to the list.
  */
 public class TaskList {
     private ArrayList<Task> list;
 
-
+    /**
+     * Constructor.
+     * @param list Current list of tasks.
+     */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
     }
@@ -87,14 +90,27 @@ public class TaskList {
         }
     }
 
+    /**
+     * Check if the task list is empty.
+     * @return boolean value indicates if the task list is empty.
+     */
     public boolean isEmpty() {
         return list.isEmpty();
     }
 
+    /**
+     * Get the size of the list.
+     * @return An integer indicates the size of the list.
+     */
     public int size() {
         return list.size();
     }
 
+    /**
+     * Get a certain task.
+     * @param index The index of the task.
+     * @return A Task object.
+     */
     public Task get(int index) {
         return list.get(index);
     }

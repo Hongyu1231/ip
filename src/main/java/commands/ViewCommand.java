@@ -9,11 +9,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a command to view the tasks taks place in a specific date.
+ * Represents a command to view the tasks that takes place in a specific date.
  */
 public class ViewCommand extends Command {
     private LocalDate targetDate;
 
+    /**
+     * Constructor.
+     * @param targetDate The date to be queried.
+     */
     public ViewCommand(LocalDate targetDate) {
         this.targetDate = targetDate;
     }

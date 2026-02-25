@@ -11,6 +11,10 @@ import batman.Ui;
 public class DeleteCommand extends Command{
     private int index;
 
+    /**
+     * Constructor.
+     * @param index The index of task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

@@ -10,6 +10,10 @@ import batman.Ui;
 public class MarkCommand extends Command{
     private int index;
 
+    /**
+     * Constructor.
+     * @param index The index of the task to be marked.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
